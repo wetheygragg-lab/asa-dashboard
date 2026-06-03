@@ -4,7 +4,7 @@
 - 最新日期：**2026-06-02**
 - 数据范围：**2026-03-01 ~ 2026-06-02**，共 **94 天**
 - 在线看板：https://wetheygragg-lab.github.io/asa-dashboard/
-- 本地 HTML：`/Users/benny/Desktop/听脑ai/广告数据/asa_daily_report_2026-06-03.html`
+- 本地 HTML：`/Users/benny/Desktop/听脑ai/广告数据/asa_daily_report_latest.html`
 
 ## 2. 最新日期核心表现
 | 指标 | 总计 | 品牌词 | 非品牌词 |
