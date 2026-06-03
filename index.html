@@ -159,10 +159,6 @@ tr:hover { background: #f8f9fa; }
       <button class="filter-btn" data-metric="ctr" onclick="setMetric('searchTerms', 'ctr', this)">CTR</button>
       <button class="filter-btn" data-metric="cpi" onclick="setMetric('searchTerms', 'cpi', this)">CPI</button>
       <button class="filter-btn" data-metric="cpn" onclick="setMetric('searchTerms', 'cpn', this)">CPN</button>
-      <span style="width:1px;background:#ddd;margin:0 4px;"></span>
-      <button class="filter-btn brand-filter active" onclick="setBrandFilter('searchTerms', 'all', this)">全部词类</button>
-      <button class="filter-btn brand-filter" onclick="setBrandFilter('searchTerms', 'brand', this)">品牌词</button>
-      <button class="filter-btn brand-filter" onclick="setBrandFilter('searchTerms', 'nonbrand', this)">非品牌词</button>
       <input class="search-input" placeholder="搜索词名称过滤..." oninput="filterTable('searchTerms', this.value)">
     </div>
     <div class="table-wrap">
@@ -224,7 +220,6 @@ let currentQuickFilter = 'today';
 let currentMetrics = {"searchTerms": "installs", "keywords": "installs"};
 let sortState = {"searchTerms": {"col": "安装量", "asc": false}, "keywords": {"col": "安装量", "asc": false}};
 let filterState = {"searchTerms": "", "keywords": ""};
-let brandFilterState = {"searchTerms": "all", "keywords": "all"};
 
 // --- Date helpers ---
 function getWeekISO(d) {
@@ -553,12 +548,6 @@ function renderTable(tableId, bodyId, records, metric) {
     const searchCol = tableId === "searchTerms" ? "搜索词" : "关键词";
     filtered = records.filter(r => String(r[searchCol] || "").toLowerCase().includes(filterVal));
   }
-  // Search-term table supports brand/non-brand filtering.
-  if (tableId === "searchTerms") {
-    const bf = brandFilterState.searchTerms || "all";
-    if (bf === "brand") filtered = filtered.filter(r => r["品牌词"] === "是");
-    if (bf === "nonbrand") filtered = filtered.filter(r => r["品牌词"] !== "是");
-  }
 
   // Sort
   const state = sortState[tableId];
@@ -604,14 +593,6 @@ function sortTable(tableId, col) {
     state.col = col;
     state.asc = false;
   }
-  renderCurrentTable(tableId);
-}
-
-function setBrandFilter(tableId, val, btn) {
-  brandFilterState[tableId] = val;
-  const bar = btn.parentElement;
-  bar.querySelectorAll('.brand-filter').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
   renderCurrentTable(tableId);
 }
 
